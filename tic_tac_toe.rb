@@ -14,4 +14,18 @@ class Board
     puts " - - - - - -"
     puts "C #{@row_c[0]} | #{@row_c[1]} | #{@row_c[2]} "
   end
+  def make_move
+    puts "Make your move! Input the row and column of the cell you want to play."
+    move_ary = gets.chomp.downcase.split("")
+    if move_ary[0] == "a" && @row_a[move_ary[1].to_i - 1] == " "
+      @row_a[move_ary[1].to_i - 1] = 'X'
+    elsif move_ary[0] == "b" && @row_b[move_ary[1].to_i - 1] == " "
+      @row_b[move_ary[1].to_i - 1] = 'X'
+    elsif move_ary[0] == "c" && @row_c[move_ary[1].to_i - 1] == " "
+      @row_c[move_ary[1].to_i - 1] = 'X'
+    else
+      puts "Invalid Move!"
+    end
+    show_board
+  end
 end
