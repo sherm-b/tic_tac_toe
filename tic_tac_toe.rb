@@ -19,7 +19,7 @@ class Board
   def make_move(token)
     invalid_move = true
     until invalid_move == false
-      puts 'Make your move! Input the row and column of the cell you want to play.'
+      puts 'Make your move! Input the row and column of the cell you want to play. (e.g., a1, b2, c3)'
       move_ary = gets.chomp.downcase.split('')
       if move_ary[0] == 'a' && @rows[:row_a][move_ary[1].to_i - 1] == ' '
         @rows[:row_a][move_ary[1].to_i - 1] = "#{token}"
@@ -31,6 +31,7 @@ class Board
         @rows[:row_c][move_ary[1].to_i - 1] = "#{token}"
         invalid_move = false
       else
+        show_board
         puts 'Invalid Move! Try again'
       end
     end
