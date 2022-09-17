@@ -2,7 +2,7 @@ class Board
   def initialize(p1_name = 'Player one', p2_name = 'Player two')
     @p1_name = p1_name
     @p2_name = p2_name
-    @rows = {row_a: [' ',' ',' '], row_b: [' ',' ',' '], row_c: [' ',' ',' ']}
+    @rows = { row_a: [' ', ' ', ' '], row_b: [' ', ' ', ' '], row_c: [' ', ' ', ' '] }
     @p1_token = 'X'
     @p2_token = 'O'
   end
@@ -22,13 +22,13 @@ class Board
       puts 'Make your move! Input the row and column of the cell you want to play. (e.g., a1, b2, c3)'
       move_ary = gets.chomp.downcase.split('')
       if move_ary[0] == 'a' && @rows[:row_a][move_ary[1].to_i - 1] == ' '
-        @rows[:row_a][move_ary[1].to_i - 1] = "#{token}"
+        @rows[:row_a][move_ary[1].to_i - 1] = token
         invalid_move = false
       elsif move_ary[0] == 'b' && @rows[:row_b][move_ary[1].to_i - 1] == ' '
-        @rows[:row_b][move_ary[1].to_i - 1] = "#{token}"
+        @rows[:row_b][move_ary[1].to_i - 1] = token
         invalid_move = false
       elsif move_ary[0] == 'c' && @rows[:row_c][move_ary[1].to_i - 1] == ' '
-        @rows[:row_c][move_ary[1].to_i - 1] = "#{token}"
+        @rows[:row_c][move_ary[1].to_i - 1] = token
         invalid_move = false
       else
         show_board
@@ -39,35 +39,31 @@ class Board
   end
 
   def winner?
-    if @rows.any? {|row_name, row| row[0] != " " && row[0] == row[1] && row[1] == row[2]}
+    if @rows.any? { |_row_name, row| row[0] != ' ' && row[0] == row[1] && row[1] == row[2] }
       return true
-    elsif @rows[:row_a][0] != " " && @rows[:row_a][0] == @rows[:row_b][1] && @rows[:row_b][1] == @rows[:row_c][2]
+    elsif @rows[:row_a][0] != ' ' && @rows[:row_a][0] == @rows[:row_b][1] && @rows[:row_b][1] == @rows[:row_c][2]
       return true
-    elsif @rows[:row_a][2] != " " && @rows[:row_a][2] == @rows[:row_b][1] && @rows[:row_b][1] == @rows[:row_c][0]
+    elsif @rows[:row_a][2] != ' ' && @rows[:row_a][2] == @rows[:row_b][1] && @rows[:row_b][1] == @rows[:row_c][0]
       return true
     end
+
     i = 0
     while i < 3
-      if @rows[:row_a][i] != " " && @rows[:row_a][i] == @rows[:row_b][i] && @rows[:row_b][i] == @rows[:row_c][i]
+      if @rows[:row_a][i] != ' ' && @rows[:row_a][i] == @rows[:row_b][i] && @rows[:row_b][i] == @rows[:row_c][i]
         return true
       end
+
       i += 1
     end
-    return false
+    false
   end
 
   def cats_game?
     cats_check = 0
-    @rows.each do |row_name, row|
-      if row.none? {|cell| cell == " "}
-        cats_check += 1
-      end
+    @rows.each do |_row_name, row|
+      cats_check += 1 if row.none? { |cell| cell == ' ' }
     end
-    if cats_check == 3
-      return true
-    else
-      return false
-    end
+    cats_check == 3
   end
 
   def game_loop
@@ -93,12 +89,11 @@ class Board
       end
     end
   end
-
 end
 
-puts "Player 1: enter your name"
+puts 'Player 1: enter your name'
 p1 = gets.chomp
-puts "Player 2: enter your name"
+puts 'Player 2: enter your name'
 p2 = gets.chomp
 
 board = Board.new(p1, p2)
